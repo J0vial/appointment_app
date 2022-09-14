@@ -11,12 +11,13 @@
         <div class="container" style="padding-right: 400px; padding-left:100px; margin-left:23%;">
             <div class="signup-content">
                 
-
+                
                 <form  method="post"  id="signup-form" class="signup-form">
+                    {% csrf_token %}
                     <h2><b>Login</b></h2>
                 
     
-                    {% csrf_token %}
+                    
                     <div class="form-group">
                         {{login_form.username|as_crispy_field}}
                         
@@ -32,7 +33,7 @@
                         </button>
                     </div>
                 </form>
-                <p> Dont have an account? <a href="{% url 'register' %}">Create an account</a>.</p>
+                <p> Dont have an account? <a href="{% url 'authentication:register' %}">Create an account</a>.</p>
                 
 
                 

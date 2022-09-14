@@ -9,13 +9,26 @@
     <section class="signup">
         <!-- <img src="images/signup-bg.jpg" alt=""> -->
         <div class="container" style="padding-right: 400px; padding-left:100px; margin-left:23%;">
+
+            
             <div class="signup-content">
                 <form   method="post"  id="signup-form" class="signup-form">
-                    <h2 class="form-title">  <b>Create an Account</b></h2>
                     {% csrf_token %}
+                    <h2 class="form-title">  <b>Create an Account</b></h2>
+                    
 
                     <div class="form-group">
                     {{register_form.username|as_crispy_field}}
+                    
+                    </div>
+
+                    <div class="form-group">
+                        {{register_form.first_name|as_crispy_field}}
+                    
+                    </div>
+
+                    <div class="form-group">
+                        {{register_form.last_name|as_crispy_field}}
                     
                     </div>
 
@@ -57,7 +70,7 @@
                 
 
                 <p class="loginhere">
-                    Have already an account ? <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
+                    Have already an account ? <a href="{% url 'authentication:login' %}" class="loginhere-link">Login here</a>
                 </p>
 
               
