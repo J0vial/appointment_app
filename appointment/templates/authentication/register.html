@@ -1,0 +1,75 @@
+{% extends 'authentication/index.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class="main">
+
+    <section class="signup">
+        <!-- <img src="images/signup-bg.jpg" alt=""> -->
+        <div class="container" style="padding-right: 400px; padding-left:100px; margin-left:23%;">
+            <div class="signup-content">
+                
+
+              <form action="POST"  id="signup-form" class="signup-form">
+                <h2 class="form-title">  <b>Create an Account</b></h2>
+                {% csrf_token %}
+
+                <div class="form-group">
+                  {{register_form.username|as_crispy_field}}
+                  
+                </div>
+
+                <div class="form-group">
+                    {{register_form.email|as_crispy_field}}
+                  
+                </div>
+
+                <div class="form-group">
+                    {{register_form.Phone_no|as_crispy_field}}
+                  
+                </div>
+
+                <div class="form-group">
+                    {{register_form.gender|as_crispy_field}}
+                  
+                </div>
+
+                
+                <div class="form-group">
+                    {{register_form.password1|as_crispy_field}}
+                  
+                </div>
+
+                
+                <div class="form-group">
+                    {{register_form.password2|as_crispy_field}}
+                  
+                </div>
+
+                
+                <div class="form-group">
+                    <button type="submit" name="submit" id="submit" class="form-submit" >
+                        Register
+                    </button>
+                </div>
+                
+
+                <p class="loginhere">
+                    Have already an account ? <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
+                </p>
+
+              </form>
+
+            </div>
+          
+        </div>
+      
+    </section>
+</div>
+
+
+
+
+{% endblock %}
