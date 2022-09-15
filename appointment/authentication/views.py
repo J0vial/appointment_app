@@ -5,6 +5,9 @@ from django.contrib.auth import login,authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import additionUserInfoForm,NewUserForm
+from .models import additionalUserInfo
+from django.contrib.auth.models import User
+
 # Create your views here.
 
 
@@ -42,14 +45,22 @@ def login_request(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            print(username)
-            print(password)
+            
             
             user = authenticate(username = username, password = password)
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are logged in as {username}.")
-                return redirect ('main:homepage')
+                user_table = User.objects.filter(username = username).values('id')
+                user_table_2 = User.objects.get(pk=user_table[0]['id'] )
+                additional = user_table_2.additionaluserinfo.catagory
+                
+                if additional =='Doctor':
+                    
+                    return redirect ('main:doctor')
+                else:
+                    return redirect ('main:patient')
+                    
             else:
                 messages.error(request, "Invalid username or password")
         else:

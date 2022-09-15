@@ -16,6 +16,7 @@ class additionalUserInfo(models.Model):
         
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
     catagory = models.CharField(choices=cat,max_length=50)
     gender = models.CharField(choices=gnd,max_length=30)
     Phone_no = models.CharField(max_length=11)
