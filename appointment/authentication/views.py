@@ -40,9 +40,10 @@ def login_request(request):
         form  = AuthenticationForm(request, data = request.POST)
         
         if form.is_valid():
-            username = form.cleaned_data.get('Username')
-            password = form.cleaned_data.get('Passowrd')
-            
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            print(username)
+            print(password)
             
             user = authenticate(username = username, password = password)
             if user is not None:
