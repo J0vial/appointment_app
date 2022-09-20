@@ -27,5 +27,5 @@ class additionUserInfoForm(forms.ModelForm):
     
     class Meta:
         model = additionalUserInfo
-        fields = ('Phone_no','gender','catagory')
+        fields = ('catagory','phone_no')
 

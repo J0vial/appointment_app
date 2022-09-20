@@ -1,1 +1,37 @@
-<h5>Patient Page</h5>
+
+{% extends 'main/Home_temp.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid sticky-top bg-white shadow-sm mb-5">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
+            <a href="#" class="navbar-brand">
+                <h1 class="m-0 text-uppercase text-primary"><i class="fa fa-clinic-medical me-2"></i>Appointment</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="#" class="nav-item nav-link">Welcome {{user.first_name}}</a>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+   
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="{% url 'main:patient' %}" class="nav-item nav-link">Home</a>
+                    <a href="{% url 'main:appoint' %}" class="nav-item nav-link">Make an Appointment</a>    
+                    <a href="{% url 'main:hos_doc_list' %}" class="nav-item nav-link">View Info about Hospital and Doctors</a> 
+                    <a href="{% url 'main:edit_info_patient' user.id %}" class="nav-item nav-link">Edit Info</a> 
+                    <a href="{% url 'authentication:logout' %}" class="nav-item nav-link">LogOut</a>
+                </div>
+            </div>
+        
+        </nav>
+    </div>
+</div>
+{% block patient %}
+{% endblock  %}
+    
+{% endblock  %}
+
+
+
+

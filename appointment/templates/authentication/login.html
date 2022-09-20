@@ -1,3 +1,4 @@
+
 {% extends 'authentication/index.html' %}
 
 {% block content %}
@@ -7,17 +8,20 @@
 <div class="main">
 
     <section class="signup">
-        <div >
-            
-            {% for message in messages%}
-            <script>
-                window.onload = function(){
-                alert("{{message}}")
-                }
+        {% if user.is_authenticated %}
+            <div >
+                
+                {% for message in messages%}
+                <script>
+                    window.onload = function(){
+                    alert("{{message}}")
+                    }
 
-            </script>
-            {% endfor %}
-        </div>
+                </script>
+                {% endfor %}
+            </div>
+        {% endif %}
+            
         <!-- <img src="images/signup-bg.jpg" alt=""> -->
         <div class="container" style="padding-right: 400px; padding-left:100px; margin-left:23%;">
             <div class="signup-content">

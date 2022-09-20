@@ -1,7 +1,8 @@
 from contextlib import redirect_stderr
+from django.urls import reverse
 from urllib import request
 from django.shortcuts import redirect, render
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import additionUserInfoForm,NewUserForm
@@ -49,15 +50,16 @@ def login_request(request):
             
             user = authenticate(username = username, password = password)
             if user is not None:
+                
                 login(request, user)
                 messages.info(request, f"You are logged in as {username}.")
                 user_table = User.objects.filter(username = username).values('id')
                 user_table_2 = User.objects.get(pk=user_table[0]['id'] )
                 additional = user_table_2.additionaluserinfo.catagory
                 
-                if additional =='Doctor':
+                if additional =='Hospital_admin':
                     
-                    return redirect ('main:doctor')
+                    return redirect (reverse('main:Hospital_admin'))
                 else:
                     return redirect ('main:patient')
                     
@@ -70,6 +72,10 @@ def login_request(request):
             
         form = AuthenticationForm()
     return render(request, "authentication/login.html",context = {'login_form': form})
-            
+    
+def logout_request(request):
+	logout(request)
+	
+	return redirect("main:homepage")        
             
             

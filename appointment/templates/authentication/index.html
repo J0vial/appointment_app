@@ -26,5 +26,16 @@
     
     <script src="{%static 'auth_css/vendor/jquery/jquery.min.js' %}"></script>
     <script src="{%static 'auth_css/js/main.js' %}"></script>
+    <script>
+
+        function yesnoCheck(that) {
+            if (that.value == "other") {
+        
+                document.getElementById("ifYes").style.display = "block";
+            } else {
+                document.getElementById("ifYes").style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
