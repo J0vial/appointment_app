@@ -21,15 +21,21 @@ class doctor(models.Model):
     
     
     def __str__(self):
-        return self.name  
+        return self.name 
+
+    
 
 class appointment(models.Model):
     
     date = models.DateField()
     time = models.TimeField(primary_key=True)
-    status = models.CharField(max_length=50,null=True)
+    hospital = models.ForeignKey(hospital,on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=50,default='Pending')
     doctor = models.ForeignKey(doctor,on_delete=models.CASCADE)
     patient = models.ForeignKey(User,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.doctor+' '+self.patient
     
     
     

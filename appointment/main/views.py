@@ -3,9 +3,9 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
-
+from django.db.models import Q
 from authentication.views import login_request
-from main.models import doctor, hospital
+from main.models import doctor, hospital,appointment
 from authentication.models import additionalUserInfo,User
 
 
@@ -60,7 +60,29 @@ def patient(request):
 
 
 def appoint(request):
-    return render(request, 'main/appoint.html')
+    query = doctor.objects.all()
+    all_data = doctor.objects.all()
+    query2 = hospital.objects.all() 
+    
+    if request.method =="GET":
+        data= request.GET.get('all')
+        if data!=None and data!='allItem':
+            query  = doctor.objects.filter(Q(name__icontains = data) | (Q(depart__icontains = data))|(Q(hos_name__hos_name__icontains = data)))
+        elif data=='allItem':
+            query = all_data
+            
+    dpt = ['Allergists',
+           'Dermatologists',
+           'Ophthalmologists',
+           'gynecologists',
+           'Cardiologists'                   
+        ]   
+    
+    
+    context = {'doctor':query,'hospital':query2,'department':dpt}
+    
+    
+    return render(request, 'main/appoint.html',context)
 
 
 
