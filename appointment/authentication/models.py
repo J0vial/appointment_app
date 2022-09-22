@@ -14,9 +14,12 @@ class additionalUserInfo(models.Model):
     
     catagory = models.CharField(choices=cat,max_length=50)
     phone_no = models.CharField(max_length=11)
-    status = models.CharField(default='unregister',max_length=100)
+    
+    status = models.CharField(choices = (('Registerd','Registerd'),('Unregisterd','Unregisterd')),max_length=100,default='Unregisterd')
+    hospital_name = models.CharField(max_length=100,null=True)
     
     
     def __str__(self):
         return self.user.username
+    
     

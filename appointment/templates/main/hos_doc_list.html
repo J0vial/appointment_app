@@ -13,6 +13,7 @@
             <th scope="col">Department</th>
             <th scope="col">Degree Info</th>
             <th scope="col">Hospital Name</th>
+            <th scope="col">Location</th>
             
           </tr>
         </thead>
@@ -23,7 +24,8 @@
                 <td scope="row">{{i.depart}}</td>
                 <td scope="row">{{i.degree}}</td>
                 
-                <td scope="row">{{i.hos_name}}</td>              
+                <td scope="row">{{i.hos_name}}</td>
+                <td scope="row">{{i.hos_name.location}}</td>                
             </tr>
             {% endfor %}
         </tbody>

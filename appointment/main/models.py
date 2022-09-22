@@ -1,7 +1,7 @@
 from weakref import proxy
 from django.db import models
 from django.contrib.auth.models import User
-import datetime
+
 
 # Create your models here.
 
@@ -26,16 +26,16 @@ class doctor(models.Model):
     
 
 class appointment(models.Model):
-    
-    date = models.DateField()
-    time = models.TimeField(primary_key=True)
-    hospital = models.ForeignKey(hospital,on_delete=models.CASCADE, null=True)
-    status = models.CharField(max_length=50,default='Pending')
+    date = models.CharField(max_length=10)
+    time = models.CharField(blank=True,max_length=10)
     doctor = models.ForeignKey(doctor,on_delete=models.CASCADE)
+    status =models.CharField(max_length=100,default='Pending')
     patient = models.ForeignKey(User,on_delete=models.CASCADE)
     
+    
+    
     def __str__(self):
-        return self.doctor+' '+self.patient
+        return self.doctor.name +' ---- '+self.patient.username
     
     
     

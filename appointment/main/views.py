@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from multiprocessing import context
 from django.shortcuts import render
 from django.urls import reverse
@@ -9,16 +10,23 @@ from main.models import doctor, hospital,appointment
 from authentication.models import additionalUserInfo,User
 
 
+
 # Create your views here.
 
 def homepage(request):
     return render(request, 'main/home.html')
+def unregis_view(request):
+    return render(request, 'main/unregis_view.html')
+    
 
 def Hospital_admin(request):
-    query = additionalUserInfo.objects.filter(catagory ='Hospital-admin').values('status')
+    query2 = appointment.objects.all()
+    
+    
     #curr_user = User.objects.get(id = pk)
+    context = {'app':query2}
 
-    return render(request, 'main/Hospital_admin.html',context = {'data':query,'adminpage':True})
+    return render(request, 'main/Hospital_admin.html',context )
 
 def update_pat(request,pk):
     if request.method=='POST':
@@ -55,8 +63,11 @@ def edit_info_patient(request,pk):
     
     
 
-def patient(request):
-    return render(request, 'main/patient.html')
+def patient(request,pk):
+    
+    appoint_list = appointment.objects.all().filter(patient_id=pk)
+    context = {'app':appoint_list}
+    return render(request, 'main/patient.html',context)
 
 
 def appoint(request):
@@ -78,8 +89,22 @@ def appoint(request):
            'Cardiologists'                   
         ]   
     
+    if request.method =='POST':
+        hos_name = request.POST.get('hos')
+        department = request.POST.get('dept')
+        doc_name = request.POST.get('doc')
+        user = request.POST.get('user')
+        date = request.POST.get('date')
+        exist = appointment.objects.all().filter(date = date,doctor_id = doc_name).exists()
+        if exist==False: 
+            app = appointment(doctor_id= doc_name, patient_id = user,date = date,time = 'NULL' )
+            app.save()
+            messages.success(request,'Your appointment is on request')
+        else:
+            messages.error(request,'You can take appointment of a doctor on same date')
+        
     
-    context = {'doctor':query,'hospital':query2,'department':dpt}
+    context = {'doctor':query,'hospital':query2,'department':dpt,'all_data':all_data}
     
     
     return render(request, 'main/appoint.html',context)
@@ -94,6 +119,8 @@ def hos_doc_list(request):
     return render(request, 'main/hos_doc_list.html',context)
 
 #--------------------------doctor-----------------------------------#
+
+
 def register_doc(request):
     
     if request.method =='POST':

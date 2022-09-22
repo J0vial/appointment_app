@@ -47,40 +47,58 @@
             </div>
             
             
+            
+            
             <div class="col-lg-6">
+                {% if messages %}
+                <div >
+                
+                    {% for message in messages%}
+                    <script>
+                        window.onload = function(){
+                        alert("{{message}}")
+                        }
+
+                    </script>
+                {% endfor %}
+                </div>
+                {% endif %}
+            
                 <div class="bg-light text-center rounded p-5">
                     <h1 class="mb-4">Book An Appointment</h1>
-                    <form >
+                    <form method ='post'>
+                        {% csrf_token %}
                         <div class="row g-3">
-                            <form action="" method="get">
-                                <div class="col-12 col-sm-6">
-                                    
-                                    <select id ='select1' class="form-select bg-white border-0" style="height: 55px;"  name = 'all' >
-                                        <option selected disabled ='true'>--Select Hospital--</option>
-                                        {% for hos in doctor  %}
-                                        <option value="{{hos.hos_name_id}}">{{hos.hos_name}}</option>
-                                        {% endfor %}
-                                        <button type="submit">Search</button>
-                                        
-                                    </select>
-                                </div>
-                            </form>
+                            <input type="hidden" name="user" value='{{user.id}}'>
+                            
                             <div class="col-12 col-sm-6">
-                                <select id ='select2'class="form-select bg-white border-0" style="height: 55px;">
-                                    <option selected disabled ='true'>Select Department</option>
-                                    {% for dt in department  %}
-                                    <option >{{dt}}</option>
+                            
+                                <select  class="form-select bg-white border-0" style="height: 55px;"  name = 'hos' >
+                                    <option selected disabled ='true'>--Select Hospital--</option>
+                                    {% for hos in hospital  %}
+                                    <option value="{{hos.id}}">{{hos.hos_name}}</option>
                                     {% endfor %}
-                                    
+                                    <button type="submit">Search</button>
+                            
+                                </select>
+                            </div>
+                        
+                            <div class="col-12 col-sm-6">
+                                <select class="form-select bg-white border-0" style="height: 55px;"name = 'dept'>
+                                    <option selected disabled ='true'>---Select Department---</option>
+                                    {% for all in department %}
+                                    <option  value={{all}}>{{all}}</option>
+                                    {% endfor %}
+                            
                                 </select>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <select id ='select3' class="form-select bg-white border-0" style="height: 55px;">
+                                <select  class="form-select bg-white border-0" style="height: 55px;" name = 'doc'>
                                     <option selected disabled ='true'>Select Doctor</option>
                                     {% for doc in doctor %}
-                                    <option >{{doc}}</option>
+                                    <option  value={{doc.id}}>{{doc.name}}</option>
                                     {% endfor %}
-                                    
+                                
                                 </select>
                             </div>
 
@@ -88,16 +106,10 @@
                                 <div class="date" id="date" data-target-input="nearest">
                                     <input type="text"
                                         class="form-control bg-white border-0 datetimepicker-input"
-                                        placeholder="Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;">
+                                        placeholder="Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;" name ='date'>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="time" id="time" data-target-input="nearest">
-                                    <input type="text"
-                                        class="form-control bg-white border-0 datetimepicker-input"
-                                        placeholder="Time" data-target="#time" data-toggle="datetimepicker" style="height: 55px;">
-                                </div>
-                            </div>
+                            
                             <div class="col-12">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Make An Appointment</button>
                             </div>

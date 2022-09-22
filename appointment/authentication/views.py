@@ -57,11 +57,16 @@ def login_request(request):
                 user_table_2 = User.objects.get(pk=user_table[0]['id'] )
                 additional = user_table_2.additionaluserinfo.catagory
                 
+                query2 = additionalUserInfo.objects.filter(catagory ='Hospital_admin').values('status')
+                query = query2[0]['status']
+                
                 if additional =='Hospital_admin':
-                    
-                    return redirect (reverse('main:Hospital_admin'))
+                    if query =='Unregisterd':
+                        return redirect (reverse('main:unregis_view'))
+                    else:
+                        return redirect (reverse('main:Hospital_admin'))
                 else:
-                    return redirect ('main:patient')
+                    return redirect ('main:patient',pk = user_table[0]['id'])
                     
             else:
                 messages.error(request, "Invalid username or password")
