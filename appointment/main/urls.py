@@ -5,7 +5,7 @@ app_name = "main"
 urlpatterns = [
     path("", views.homepage, name="homepage"),
     path("hos_doc_list/", views.hos_doc_list, name="hos_doc_list"),
-    path("Hospital_admin/", views.Hospital_admin, name="Hospital_admin"),
+    path("Hospital_admin/<str:name>", views.Hospital_admin, name="Hospital_admin"),
     path(
         "Hospital_admin/Hospital_admin_accp/<int:pk>",
         views.Hospital_admin_accp,

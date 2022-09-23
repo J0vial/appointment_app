@@ -19,7 +19,7 @@
                     <div class="navbar-nav ms-auto py-0">
                         
 
-                            <a href="{% url 'main:Hospital_admin'  %}" class="nav-item nav-link">Home</a>
+                            <a href="{% url 'main:Hospital_admin' user.additionaluserinfo.hospital_name %}" class="nav-item nav-link">Home</a>
                         
                             <a href="{% url 'main:edit_doc_info' %}" class="nav-item nav-link">Edit Info of Doctor</a> 
                             <a href="{% url 'main:regi_doc' %}" class="nav-item nav-link">Register a Doctor</a> 

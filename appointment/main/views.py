@@ -21,25 +21,6 @@ def unregis_view(request):
     return render(request, "main/unregis_view.html")
 
 
-def Hospital_admin_accp(request, pk):
-
-    if request.method == "POST":
-        time = request.POST["time"]
-        saved = appointment.objects.get(id=pk)
-        saved.time = time
-        saved.status = "accepted"
-        saved.save()
-    return HttpResponseRedirect(reverse("main:Hospital_admin"))
-
-
-def Hospital_admin(request):
-    query2 = appointment.objects.all()
-
-    context = {"app": query2}
-
-    return render(request, "main/Hospital_admin.html", context)
-
-
 def update_pat(request, pk):
     if request.method == "POST":
 
@@ -134,6 +115,23 @@ def hos_doc_list(request):
 
 
 # --------------------------doctor-----------------------------------#
+def Hospital_admin_accp(request, pk):
+
+    if request.method == "POST":
+        time = request.POST["time"]
+        saved = appointment.objects.get(id=pk)
+        saved.time = time
+        saved.status = "accepted"
+        saved.save()
+    return HttpResponseRedirect(reverse("main:Hospital_admin"))
+
+
+def Hospital_admin(request, name):
+    query2 = appointment.objects.all().filter(doctor_id__hos_name__hos_name= name)
+
+    context = {"app": query2}
+
+    return render(request, "main/Hospital_admin.html", context)
 
 
 def register_doc(request):
@@ -211,7 +209,7 @@ def updaterecord(request, pk):
         member.name = name
         member.depart = department
         member.degree = degree
-        member.hos_name = hospital.objects.get(hos_name=hospital_name)
+        member.hos_name = hospital.objects.get(hos_name=hospital_name.id)
         member.date = date
 
         member.save()
