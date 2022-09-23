@@ -24,10 +24,7 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <select class="form-select bg-white border-0" style="height: 55px;" id = 'hospital' name = 'hospital'>
-                                    {% for i in models %}
-                                        <option >{{i}}</option>
-                                        
-                                    {% endfor %}
+                                    <option  >{{user.additionaluserinfo.hospital_name}}</option>
                                     
                                 </select>
                             </div>

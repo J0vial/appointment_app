@@ -65,21 +65,30 @@
                     <td scope="row">{{i.doctor.hos_name.location}}</td>
                     
                     <td scope="row">{{i.date}}</td>
+                    
                     <td scope="row">{{i.status}}</td>
-                    <form action="" method="post">
+                    {% if i.time %}
+                        <td scope="row">{{i.time}}</td>
+                        <td><button disabled="disabled" class="btn btn-success">accept</button></td>
+                    {% else %}
+                    <form action="Hospital_admin_accp/{{i.id}}" method="post">
+                        {% csrf_token %}
                         <td>
                             <div class="time" id="time" data-target-input="nearest">
-                                <input type="text" placeholder='Enter the Time'
+                                <input type="text" placeholder='Enter the Time' name ='time'
                                     class="form-control bg-white border-5 datetimepicker-input"
                                     placeholder="Time" data-target="#time" data-toggle="datetimepicker" style="height: 55px;">
                             </div>
                         </td>
                         <td scope="row">
                         
-                            <button type="submit">accept</button>
+                            <button type="submit" class="btn btn-success">accept</button>
                          
                         </td>
-                    </form>               
+                    </form>
+                    
+
+                    {% endif %}               
                 </tr>
                 {% endfor %}
             </tbody>
