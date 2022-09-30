@@ -7,9 +7,9 @@ To run this website follows this steps,
 
 1) py manage.py makemigrations.
 
-2)py manage.py migrate.
+2) py manage.py migrate.
 
-(By this you upload all the settings on your machine)
+      (By this you upload all the settings on your machine)
 
 3) Finally do this, py manage.py runserver.
 
