@@ -60,7 +60,7 @@ def login_request(request):
                 additional = user_table_2.additionaluserinfo.catagory
 
                 query2 = additionalUserInfo.objects.filter(
-                    catagory="Hospital_admin"
+                    catagory="Hospital_admin",user_id = user_table[0]["id"]
                 ).values("status")
                 query = query2[0]["status"]
 
@@ -68,7 +68,9 @@ def login_request(request):
                     if query == "Unregisterd":
                         return redirect(reverse("main:unregis_view"))
                     else:
-                        return redirect(reverse("main:Hospital_admin"))
+                        query4 = user_table_2.additionaluserinfo.hospital_name
+                        
+                        return redirect(reverse("main:Hospital_admin",kwargs={'name': query4}))
                 else:
                     return redirect("main:patient", pk=user_table[0]["id"])
 
